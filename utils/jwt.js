@@ -1,6 +1,6 @@
 'use strict'
 
-import { JsonWebTokenError } from "jsonwebtoken"
+import jwt from "jsonwebtoken"
 
 export const generateJwt=async(payload)=>{
     try{

@@ -6,11 +6,13 @@ import helmet from 'helmet'
 import cors from 'cors'
 import { limiter } from '../middlewares/rate.limit.js'
 import userRoutes from '../src/users/user.routes.js'
-
+import categoryRoutes from '../src/categories/category.routes.js'
+import postRoutes from '../src/posts/post.routes.js'
+import commentRoutes from '../src/comments/comment.routes.js'
 
 const configs =(app)=>{
     app.use(express.json())
-    app.use(express.urlencoded({extended:false}))
+    app.use(express.urlencoded({extended: false}))
     app.use(cors())
     app.use(helmet())
     app.use(morgan('dev'))
@@ -19,6 +21,9 @@ const configs =(app)=>{
 
 const routes=(app)=>{
     app.use(userRoutes)
+    app.use(categoryRoutes)
+    app.use(postRoutes)
+    app.use(commentRoutes)
 }
 
 export const initServer=()=>{

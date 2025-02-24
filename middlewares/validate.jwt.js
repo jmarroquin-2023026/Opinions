@@ -17,21 +17,22 @@ export const validateJwt = async(req,res,next)=>{
             req.user=user
             next()
     }catch(e){
-        console.error(err)
+        console.error(e)
         return res.status(401).send({message: 'Invalid credentials'})
     }
 }
 
 export const isAdmin=async(req,res,next)=>{
     try{
-        const {user}=req
-        if(user|| user.role!=='ADMIN')return res.status(403).send(
-            {
+        let {user}=req
+        if(!user || user.role !=='ADMIN'){ 
+            return res.status(403).send({
                 success:false,
                 message:`You dont have access | username: ${user.username}`
-            }
-        )
-        next()
+            });
+    }
+
+        next();
     }catch(e){
         console.error(e)
     }
@@ -40,7 +41,7 @@ export const isAdmin=async(req,res,next)=>{
 export const isClient=async(req,res,next)=>{
     try{
         let {user}=req
-        if(user || user.role!=='CLIENT') res.status(403).send(
+        if(!user || user.role!=='CLIENT') res.status(403).send(
             {
                 success:false,
                 message:`You dont have access | username: ${user.username}`
